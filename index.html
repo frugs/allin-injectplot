@@ -14,6 +14,10 @@
 
 <body>
 
+  <div class="secondary-element">
+    <span id="playerName"></span>
+  </div>
+
   <div class="chart-container">
     <canvas id="myChart" width="800" height="600"></canvas>
   </div>
@@ -27,6 +31,7 @@
     rawInputData = JSON.parse(jsonData)
 
     document.getElementById("overallInjectEfficiency").innerHTML = rawInputData.injectEfficiency
+    document.getElementById("playerName").innerHTML = rawInputData.playerName
 
     colours = [
       "#39A2AE",
@@ -87,6 +92,9 @@
           },
           layout: {
             padding: 20
+          },
+          animation: {
+            easing: 'easeOutCubic'
           }
         }
     });
