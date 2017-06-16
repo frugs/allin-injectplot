@@ -1,0 +1,95 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <title>Queen Inject Efficiency Plotter</title>
+  <meta name="description" content="Queen Inject Efficiency Plotter">
+  <meta name="author" content="frugs">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+</head>
+
+<body>
+
+  <div class="chart-container">
+    <canvas id="myChart" width="800" height="600"></canvas>
+  </div>
+
+  <div class="secondary-element">
+    Overall Inject Efficiency: <span id="overallInjectEfficiency"></span>%
+  </div>
+
+  <script type="text/javascript">
+    jsonData = decodeURIComponent(window.location.search.substring(6))
+    rawInputData = JSON.parse(jsonData)
+
+    document.getElementById("overallInjectEfficiency").innerHTML = rawInputData.injectEfficiency
+
+    colours = [
+      "#39A2AE",
+      "#498467",
+      "#9B8816",
+      "#503D3F",
+      "#C1D37F",
+      "#181F1C",
+      "#EC0B43",
+      "#EDCB96"
+    ]
+
+    chartData = {
+       datasets: rawInputData.chartData.map((hatcheryData, index) => {
+         return {
+           label: "Hatchery " + (index + 1),
+           data: hatcheryData,
+           steppedLine: 'before',
+           fill: false,
+           backgroundColor: colours[index],
+           pointRadius: 0,
+           borderColor: colours[index]
+         }
+       })
+    }
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+          title: {
+            display: true,
+            text: "Queen Inject Efficiency Diagram",
+            fontSize: 36
+          },
+          scales: {
+            xAxes: [{
+                type: 'time',
+                position: 'bottom',
+                time: {
+                  unit: 'minute',
+                  displayFormats: {
+                      minute: 'mm:ss'
+                  }
+                }
+              }],
+              yAxes: [{
+                  display: false,
+                  ticks: {
+                    suggestedMin: -1,
+                    beginAtZero: false
+                  }
+              }]
+          },
+          tooltip: {
+            enabled: false
+          },
+          layout: {
+            padding: 20
+          }
+        }
+    });
+  </script>
+</body>
+</html>
