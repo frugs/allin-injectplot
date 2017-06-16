@@ -27,7 +27,8 @@
   </div>
 
   <script type="text/javascript">
-    jsonData = decodeURIComponent(window.location.search.substring(6))
+    jsonData = decodeURIComponent(
+      window.location.search.substring(6, window.location.search.indexOf('&')))
     rawInputData = JSON.parse(jsonData)
 
     document.getElementById("overallInjectEfficiency").innerHTML = rawInputData.injectEfficiency
