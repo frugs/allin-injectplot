@@ -7,7 +7,8 @@ body > div {
   color: #666;
 }
 
-div.secondary-element {
+div.primary-element {
+  font-style: italic;
   display: block;
   position: relative;
   margin-left: auto;
@@ -15,6 +16,20 @@ div.secondary-element {
   width: 80vw;
   text-align: center;
   font-size: 2.5em;
+}
+
+div.secondary-element {
+  display: block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80vw;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.value-element {
+  font-weight: bold; 
 }
 
 @media (max-width: 1000px) and (orientation: landscape) {

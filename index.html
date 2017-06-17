@@ -14,7 +14,7 @@
 
 <body>
 
-  <div class="secondary-element">
+  <div class="primary-element">
     <span id="playerName"></span>
   </div>
 
@@ -23,7 +23,13 @@
   </div>
 
   <div class="secondary-element">
-    Overall Inject Efficiency: <span id="overallInjectEfficiency"></span>%
+    Overall Inject Efficiency:
+    <span id="overallInjectEfficiency" class="value-element"></span>%
+  </div>
+
+  <div class="secondary-element">
+    Inject Efficiency From Completion Of First Queen:
+    <span id="injectEfficiencyFromFirstQueenCompleted" class="value-element"></span>%
   </div>
 
   <script type="text/javascript">
@@ -34,7 +40,8 @@
     jsonData = decodeURIComponent(dataParamValue)
     rawInputData = JSON.parse(jsonData)
 
-    document.getElementById("overallInjectEfficiency").innerHTML = rawInputData.injectEfficiency
+    document.getElementById("overallInjectEfficiency").innerHTML = rawInputData.overallInjectEfficiency
+    document.getElementById("injectEfficiencyFromFirstQueenCompleted").innerHTML = rawInputData.injectEfficiencyFromFirstQueenCompleted
     document.getElementById("playerName").innerHTML = rawInputData.playerName
 
     colours = [
