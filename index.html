@@ -10,6 +10,7 @@
   <meta name="author" content="frugs">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+  <script src="https://unpkg.com/pako@1.0.5/dist/pako_inflate.min.js"></script>
 </head>
 
 <body>
@@ -37,7 +38,11 @@
     nextParamIndex = queryParams.indexOf('&')
     dataParamValue = nextParamIndex != -1 ? queryParams.substring(6, nextParamIndex) : queryParams.substring(6)
 
-    jsonData = decodeURIComponent(dataParamValue)
+    compressedAndEncodedJsonData = decodeURIComponent(dataParamValue)
+    compressedJsonData = atob(compressedAndEncodedJsonData)
+    decompressedJsonData = pako.inflate(compressedJsonData, {to: "string"})
+    jsonData = decodeURIComponent(escape(decompressedJsonData))
+
     rawInputData = JSON.parse(jsonData)
 
     document.getElementById("overallInjectEfficiency").innerHTML = rawInputData.overallInjectEfficiency
@@ -109,6 +114,7 @@
           }
         }
     });
+
   </script>
 </body>
 </html>
