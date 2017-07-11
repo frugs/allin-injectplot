@@ -24,6 +24,11 @@
   </div>
 
   <div class="secondary-element">
+    Total Injects Popped:
+    <span id="injectPops" class="value-element"></span>
+  </div>
+
+  <div class="secondary-element">
     Overall Inject Efficiency:
     <span id="overallInjectEfficiency" class="value-element"></span>%
   </div>
@@ -48,6 +53,7 @@
     document.getElementById("overallInjectEfficiency").innerHTML = rawInputData.overallInjectEfficiency
     document.getElementById("injectEfficiencyFromFirstQueenCompleted").innerHTML = rawInputData.injectEfficiencyFromFirstQueenCompleted
     document.getElementById("playerName").innerHTML = rawInputData.playerName
+    document.getElementById("injectPops").innerHTML = rawInputData.injectPops
 
     colours = [
       "#39A2AE",
