@@ -1,10 +1,18 @@
 body {
   margin-top: 1em;
-}
-
-body > div {
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   color: #666;
+}
+
+h1 {
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+    text-align: center;
+    font-size: 1.5em;
+    font-weigt: bold;
 }
 
 div.primary-element {
@@ -16,6 +24,7 @@ div.primary-element {
   width: 80vw;
   text-align: center;
   font-size: 2.5em;
+  padding-top: 0.3em;
 }
 
 div.secondary-element {
@@ -25,11 +34,38 @@ div.secondary-element {
   margin-right: auto;
   width: 80vw;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.2em;
+}
+
+div.tertiary-element {
+  display: block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80vw;
+  text-align: center;
+  font-size: 1em;
+  padding-bottom: 0.4em;
+}
+
+form {
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+    padding: 2em;
 }
 
 .value-element {
-  font-weight: bold; 
+  font-weight: bold;
+}
+
+.hidden {
+    display: none;
+    height: 0px;
+    font-size: 0.1em;
+    color: rgba(0, 0, 0, 0);
 }
 
 @media (max-width: 1000px) and (orientation: landscape) {

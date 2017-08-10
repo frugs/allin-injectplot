@@ -1,0 +1,170 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <title>Queen Inject Efficiency Visualiser</title>
+  <meta name="description" content="Queen Inject Efficiency Plotter">
+  <meta name="author" content="frugs">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+  <script src="https://unpkg.com/pako@1.0.5/dist/pako_inflate.min.js"></script>
+</head>
+
+<body>
+
+  <h1>
+    Queen Inject Efficiency Visualiser
+  </h1>
+
+  <div id="replayName" class="tertiary-element"></div>
+
+  <div class="primary-element hidden">
+    <span id="playerName0"></span>
+  </div>
+
+  <div class="chart-container hidden">
+    <canvas id="myChart0" width="800" height="600"></canvas>
+  </div>
+
+  <div class="secondary-element hidden">
+    Total Injects Popped:
+    <span id="injectPops0" class="value-element"></span>
+  </div>
+
+  <div class="secondary-element hidden">
+    Overall Inject Efficiency:
+    <span id="overallInjectEfficiency0" class="value-element"></span>%
+  </div>
+
+  <div class="secondary-element hidden">
+    Inject Efficiency From Completion Of First Queen:
+    <span id="injectEfficiencyFromFirstQueenCompleted0" class="value-element"></span>%
+  </div>
+
+  <div class="primary-element hidden">
+    <span id="playerName1"></span>
+  </div>
+
+  <div class="chart-container hidden">
+    <canvas id="myChart1" width="800" height="600"></canvas>
+  </div>
+
+  <div class="secondary-element hidden">
+    Total Injects Popped:
+    <span id="injectPops1" class="value-element"></span>
+  </div>
+
+  <div class="secondary-element hidden">
+    Overall Inject Efficiency:
+    <span id="overallInjectEfficiency1" class="value-element"></span>%
+  </div>
+
+  <div class="secondary-element hidden">
+    Inject Efficiency From Completion Of First Queen:
+    <span id="injectEfficiencyFromFirstQueenCompleted1" class="value-element"></span>%
+  </div>
+
+  <script type="text/javascript">
+
+    colours = [
+      "#39A2AE",
+      "#498467",
+      "#9B8816",
+      "#503D3F",
+      "#C1D37F",
+      "#181F1C",
+      "#EC0B43",
+      "#EDCB96"
+    ]
+
+    queryParams = window.location.search
+    nextParamIndex = queryParams.indexOf('&')
+    dataParamValue = nextParamIndex != -1 ? queryParams.substring(6, nextParamIndex) : queryParams.substring(6)
+
+    compressedAndEncodedJsonData = decodeURIComponent(dataParamValue)
+    compressedJsonData = atob(compressedAndEncodedJsonData)
+    decompressedJsonData = pako.inflate(compressedJsonData, {to: "string"})
+    jsonData = decodeURIComponent(escape(decompressedJsonData))
+
+    rawInputData = JSON.parse(jsonData)
+
+    document.getElementById("replayName").innerHTML = rawInputData.replayName
+
+    for (var i = 0, len = rawInputData.players.length; i < Math.min(len, 2); i++) {
+      player = rawInputData.players[i]
+
+      document.getElementById("overallInjectEfficiency" + i).parentElement.classList.remove("hidden")
+      document.getElementById("overallInjectEfficiency" + i).innerHTML = player.overallInjectEfficiency
+
+      document.getElementById("injectEfficiencyFromFirstQueenCompleted" + i).parentElement.classList.remove("hidden")
+      document.getElementById("injectEfficiencyFromFirstQueenCompleted" + i).innerHTML = player.injectEfficiencyFromFirstQueenCompleted
+
+      document.getElementById("playerName" + i).parentElement.classList.remove("hidden")
+      document.getElementById("playerName" + i).innerHTML = player.playerName
+
+      document.getElementById("injectPops" + i).parentElement.classList.remove("hidden")
+      document.getElementById("injectPops" + i).innerHTML = player.injectPops
+
+      chartData = {
+         datasets: player.chartData.map((hatcheryData, index) => {
+           return {
+             label: "Hatchery " + (index + 1),
+             data: hatcheryData,
+             steppedLine: 'before',
+             fill: false,
+             backgroundColor: colours[index],
+             pointRadius: 0,
+             borderColor: colours[index]
+           }
+         })
+      }
+
+      document.getElementById("myChart" + i).parentElement.classList.remove("hidden")
+      var ctx = document.getElementById("myChart" + i).getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'line',
+          data: chartData,
+          options: {
+            title: {
+              display: false,
+              text: "Queen Inject Efficiency Visualiser",
+              fontSize: 36
+            },
+            scales: {
+              xAxes: [{
+                  type: 'time',
+                  position: 'bottom',
+                  time: {
+                    unit: 'minute',
+                    displayFormats: {
+                        minute: 'mm:ss'
+                    }
+                  }
+                }],
+                yAxes: [{
+                    display: false,
+                    ticks: {
+                      suggestedMin: -1,
+                      beginAtZero: false
+                    }
+                }]
+            },
+            tooltip: {
+              enabled: false
+            },
+            layout: {
+              padding: 20
+            },
+            animation: {
+              easing: 'easeOutCubic'
+            }
+          }
+      });
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <title>Queen Inject Efficiency Visualiser</title>
+  <meta name="description" content="Queen Inject Efficiency Plotter">
+  <meta name="author" content="frugs">
+</head>
+
+<body>
+
+  <h1>
+    Queen Inject Efficiency Visualiser
+  </h1>
+
+  <div class="primary-element">
+    Upload a replay to see a visualisation of the Queen injection efficiency of
+    the players.
+  </div>
+
+  <form action="upload" enctype="multipart/form-data" method="post">
+    <input id="replay" name="replay" accept=".SC2Replay" type="file">
+    <input type="submit" value="Upload">
+  </form>
+
+</body>
+</html>
