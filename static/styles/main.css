@@ -1,51 +1,30 @@
 body {
-  margin-top: 1em;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  color: #666;
-}
-
-h1 {
-    display: block;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80vw;
-    text-align: center;
-    font-size: 1.5em;
-    font-weigt: bold;
-}
-
-div.primary-element {
-  font-style: italic;
-  display: block;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80vw;
+  background: radial-gradient(circle farthest-corner at top, #f0f0f0 5em, #c6c6c6 60em);
   text-align: center;
-  font-size: 2.5em;
-  padding-top: 0.3em;
-}
-
-div.secondary-element {
+  min-height: 100vh;
   display: block;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80vw;
-  text-align: center;
+  font-family: sans-serif;
+  padding: 1em;
   font-size: 1.2em;
+  line-height: 120%;
 }
 
-div.tertiary-element {
-  display: block;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  width: 80vw;
+.heading, .subheading {
+  padding: 20px;
+  color: black;
   text-align: center;
-  font-size: 1em;
-  padding-bottom: 0.4em;
+}
+
+.subsubheading {
+  padding: 5px;
+  border-radius: 5px;
+  background: #990000;
+  margin: 1em 15vw;
+  color: white;
+}
+
+.logo {
+  height: 10em;
 }
 
 form {
