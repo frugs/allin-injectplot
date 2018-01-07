@@ -139,3 +139,10 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+/allinbot-79bb6061c4e1.json
+.idea/allin-injectplot.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+allinbot-79bb6061c4e1.json
+public/

@@ -1,1 +1,2 @@
-from .upload import ReplayAnalyser
+import injects.util
+import injects.replay
