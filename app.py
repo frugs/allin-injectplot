@@ -2,12 +2,12 @@ import asyncio
 import base64
 import gzip
 import json
+import os
 import pickle
 
 import aiohttp.web
 import aiohttp_jinja2
 import jinja2
-import os
 import pkg_resources
 import pyrebase
 
@@ -22,7 +22,7 @@ def open_db_connection():
 
 def upload_analysis(replay_id: str, replay_analysis: dict):
     db = open_db_connection()
-    db.child("inject_analyses").child(replay_id).set(replay_analysis)
+    db.child("inject_analyses").child(replay_id).set(json.dumps(replay_analysis))
 
 
 def fetch_analysis_data(replay_id: str) -> str:
@@ -70,7 +70,7 @@ async def show_analysis(request: aiohttp.web.Request) -> dict:
     replay_id = request.match_info['replay_id']
     analysis_data = await asyncio.get_event_loop().run_in_executor(None, fetch_analysis_data, replay_id)
     return {
-        "analysis_data": json.dumps(analysis_data)
+        "analysis_data": analysis_data
     }
 
 
