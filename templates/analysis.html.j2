@@ -86,7 +86,7 @@
       "#EDCB96"
     ]
 
-    rawInputData = JSON.parse('{{analysis_data}}')
+    rawInputData = JSON.parse('{{analysis_data | safe}}')
 
     document.getElementById("replayName").innerHTML = rawInputData.replayName
 
