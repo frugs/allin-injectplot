@@ -11,6 +11,7 @@ version: '0.0.1+{build}'
 
 build_script:
   - ps: Compress-Archive -Path app.py -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
+  - ps: Compress-Archive -Path start_server.bat -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
   - ps: Compress-Archive -Path LICENSE -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
   - ps: Compress-Archive -Path injects -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
   - ps: Compress-Archive -Path static -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
