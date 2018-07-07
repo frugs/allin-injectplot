@@ -17,7 +17,7 @@ install:
 version: '0.0.2+{build}'
 
 build_script:
-  - "%PYTHON%\\Scripts\\pyinstaller.exe app.py --name allin-injectplot --add-data static;static --add-data templates;templates --add-data LICENSE;"
+  - "%PYTHON%\\Scripts\\pyinstaller.exe app.py --name allin-injectplot --add-data static;static --add-data templates;templates --add-data LICENSE;."
   - ps: Compress-Archive -Path dist\allin-injectplot -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
 
 artifacts:
@@ -31,4 +31,4 @@ deploy:
     draft: false
     prerelease: false
     on:
-      appveyor_repo_tag: true       # deploy on tag push only
+      appveyor_repo_tag: true
