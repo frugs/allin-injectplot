@@ -7,12 +7,14 @@ import jinja2
 import pkg_resources
 
 import injects
-import storage
 
 FIREBASE_CONFIG = os.getenv("FIREBASE_CONFIG", None)
-
-database = storage.FirebaseDatabase(
-    FIREBASE_CONFIG) if FIREBASE_CONFIG else storage.InMemoryDatabase()
+if FIREBASE_CONFIG:
+    from storage.firebasedatabase import FirebaseDatabase
+    database = FirebaseDatabase()
+else:
+    from storage.inmemorydatabase import InMemoryDatabase
+    database = InMemoryDatabase()
 
 
 @aiohttp_jinja2.template('index.html.j2')
