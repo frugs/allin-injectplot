@@ -5,22 +5,20 @@ environment:
     - PYTHON: "C:\\Python36-x64"
 
 install:
-  - "%PYTHON%\\python.exe -m pip install -r requirements.txt --target Lib"
+  - "%PYTHON%\\python.exe -m pip install -r requirements.txt"
+  - "%PYTHON%\\python.exe -m pip install pyinstaller"
+  - "%PYTHON%\\python.exe -m pip uninstall sc2reader"
+  - ps: Invoke-WebRequest -Uri "https://github.com/ggtracker/sc2reader/archive/upstream.zip" -OutFile sc2reader.zip
+  - ps: Expand-Archive -Path sc2reader.zip -DestinationPath .
+  - cd sc2reader-upstream
+  - "%PYTHON%\\python.exe setup.py install"
+  - cd ..
 
-version: '0.0.1+{build}'
+version: '0.0.2+{build}'
 
 build_script:
-  - ps: Compress-Archive -Path app.py -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
-  - ps: Compress-Archive -Path start_server.bat -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
-  - ps: Compress-Archive -Path LICENSE -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
-  - ps: Compress-Archive -Path injects -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
-  - ps: Compress-Archive -Path static -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
-  - ps: Compress-Archive -Path storage -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
-  - ps: Compress-Archive -Path templates -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
-  - ps: Invoke-WebRequest -Uri "https://www.python.org/ftp/python/3.6.5/python-3.6.5-embed-win32.zip" -OutFile python36.zip
-  - ps: Expand-Archive -Path python36.zip -DestinationPath python36
-  - ps: Compress-Archive -Path python36 -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
-  - ps: Compress-Archive -Path Lib\* -Update -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
+  - "%PYTHON%\\Scripts\\pyinstaller.exe app.py --name allin-injectplot --add-data static;static --add-data templates;templates --add-data LICENSE;"
+  - ps: Compress-Archive -Path dist\allin-injectplot -DestinationPath "allin-injectplot-${Env:APPVEYOR_BUILD_VERSION}.zip"
 
 artifacts:
   - path: 'allin-injectplot-%APPVEYOR_BUILD_VERSION%.zip'
